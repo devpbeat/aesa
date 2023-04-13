@@ -1,0 +1,74 @@
+{
+  "kind": "collectionType",
+  "collectionName": "plains",
+  "info": {
+    "singularName": "plain",
+    "pluralName": "plains",
+    "displayName": "Plain",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "project_id": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::project.project",
+      "inversedBy": "plains"
+    },
+    "Name": {
+      "type": "string"
+    },
+    "plainCode": {
+      "type": "uid"
+    },
+    "customer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::customer.customer",
+      "inversedBy": "plains"
+    },
+    "feeder": {
+      "type": "string"
+    },
+    "zona": {
+      "type": "string"
+    },
+    "delivery_number": {
+      "type": "uid"
+    },
+    "geographical_coordenates": {
+      "type": "string",
+      "regex": "/^[-]?\\d+[\\.]?\\d*, [-]?\\d+[\\.]?\\d*$/"
+    },
+    "utm_coordinates": {
+      "type": "string",
+      "regex": "^[-+]?([1-8]?\\d(\\.\\d+)?|90(\\.0+)?),\\s*[-+]?(180(\\.0+)?|((1[0-7]\\d)|([1-9]?\\d))(\\.\\d+)?)$"
+    },
+    "observation": {
+      "type": "richtext"
+    },
+    "images": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "attached_files": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    }
+  }
+}

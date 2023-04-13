@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "projects",
+  "info": {
+    "singularName": "project",
+    "pluralName": "projects",
+    "displayName": "Project"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Status": {
+      "type": "boolean"
+    },
+    "Code": {
+      "type": "uid"
+    },
+    "plains": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::plain.plain",
+      "mappedBy": "project_id"
+    }
+  }
+}
