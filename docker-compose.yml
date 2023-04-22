@@ -1,35 +1,38 @@
-version: '3'
+version: '3.9'
 services:
-  strapi-v4:
-    image: naskio/strapi
-    restart: always
-    container_name: strapi-v4
+  backend:
+    build:
+      context: backend/
+      dockerfile: Dockerfile
+      env_file:
+        - .env
+    container_name: backend
     ports:
-      - '1337:1337'
-    environment:
-      NODE_ENV: development
-      DATABASE_CLIENT: postgres
-      DATABASE_HOST: postgres
-      DATABASE_PORT: 5432
-      DATABASE_NAME: postgres
-      DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: postgres
-      DATABASE_SSL: false # boolean for SSL.
+      - 8000:8000
     volumes:
-      - ./backend/app:/srv/app # create a new project in app volume
-  postgres:
-    restart: always
-    image: postgres
-    container_name: postgres
-    environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    expose:
-      - 5432
+      - ./backend:/app
+    depends_on:
+      - db
+    command: python manage.py runserver
+  
+  frontend:
+    build:
+      context: frontend/
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - 3000:3000
     volumes:
-      - ./backend/data:/var/lib/postgresql/data
+      - ./frontend:/app
+    depends_on:
+      - backend
 
-volumes:
-  data:
-  app:
+  db:
+    image: postgres
+    container_name: db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
