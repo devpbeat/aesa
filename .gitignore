@@ -131,4 +131,6 @@ dmypy.json
 
 /node_modules/
 /.idea/
+/.vscode/
+__pycache__/
 *.lock
